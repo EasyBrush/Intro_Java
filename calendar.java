@@ -19,9 +19,9 @@ public class calendar {
 		System.out.println("Enter a year (e.g. 2012)");
 		year = input.nextInt();
 		
-		//printMonthHeader(month, year);						//X
-		//System.out.print(getNumDaysinMonth(month, year));     //X
-		printMonthBody(month, year);           //X
+
+		//printMonthBody(month, year);           //X
+		printMonthCalendar(month, year);
 		
 	}	
 		
@@ -40,35 +40,52 @@ public class calendar {
 	public static void printMonthHeader(int month, int year) {
 
 		System.out.println("\t" + getMonthName(month) + " " + year);
-		System.out.println("---------------------------");
-		System.out.println("Sun" + " " + "Mon" + " " + "Tue" + " " + "Wed" + " " + "Thu" + " " + "Fri" + " " + "Sat");
+		System.out.println("----------------------------");
+		System.out.println(" Sun" + " " +  "Mon" + " " + "Tue" + " " + "Wed" + " " + "Thu" + " " + "Fri" + " " + "Sat");
 		
 	}
 	
 	public static void printMonthBody(int month, int year) {
-		
-		//getStartDay(month, year);  																//generates number (1 = Monday....7 = Sunday)
-		//getNumDaysinMonth(month,year);															//generates number of days in a month
-		
-		
-		for (int i = 0; i < getStartDay(month,year); i++) {											//For loop prints spaces up until the startoftheday	
-			System.out.print("   ");
+		int i = 0;
+		for( i = 0; i < (getStartDay(month,year)%7); i++) {										//accounts for when getStartDay = 7, easier to use %
+			System.out.print("    ");														    //prevents shift of first week
 		}	
-		for (int j = 1; j <= getNumDaysinMonth(month , year); j++ ) {								//Prints the date on the calendar up until the last date
+		for (i = 1; i <= getNumDaysinMonth(month,year);i++) {
+			if(i<10) {
+				System.out.print("   " + i);
+			}
+			else { 
+				System.out.print("  " + i);
+			}
+			if ((i + getStartDay(month,year)) % 7 == 0 ) {
+				System.out.println();
+			}
+		}		
+	}	
+		//below is the first attempt, above is a more compact version. 			
+		/*for (int i = 0; i < getStartDay(month,year); i++) {											//For loop prints spaces up until the startoftheday	
+			System.out.print("    ");
+		}	
+		for (int j = 1; j <= getNumDaysinMonth(month , year); j++ ) {								    //Prints the date on the calendar up until the last date
 
+			
 			if ((getStartDay(month,year) + j) % 7 == 0) {
 				if (j<10) {
-					System.out.println("     " + j);
+					System.out.println("   " + j);
 				} 				
 				else {
-					System.out.println(" " + j);								
+					System.out.println("  " + j);								
 				}
 			}
 			else {
-				System.out.print(" " + j);
+				if (j<10)  
+					{ System.out.print("   " + j); }
+				
+				else
+					{System.out.print("  " + j); }				
 			}			
-		}		
-	}
+		}	*/	
+	//}
 	
 	
 	
